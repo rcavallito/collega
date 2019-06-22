@@ -14,6 +14,7 @@
 		F849C65922567C59007068BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F849C65722567C59007068BF /* Main.storyboard */; };
 		F849C65B22567C5B007068BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F849C65A22567C5B007068BF /* Assets.xcassets */; };
 		F849C65E22567C5B007068BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F849C65C22567C5B007068BF /* LaunchScreen.storyboard */; };
+		F866F1EB22BC3DAD006A17A8 /* Questionnaire3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F866F1EA22BC3DAD006A17A8 /* Questionnaire3ViewController.swift */; };
 		F8B97FC9228EF0FF00409A1D /* QuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B97FC8228EF0FF00409A1D /* QuestionnaireViewController.swift */; };
 		F8FD28052281D93B00BFB8AA /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FD28042281D93B00BFB8AA /* LogInViewController.swift */; };
 		F8FD28072281D96C00BFB8AA /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FD28062281D96C00BFB8AA /* RegistrationViewController.swift */; };
@@ -32,6 +33,7 @@
 		F849C65A22567C5B007068BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F849C65D22567C5B007068BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F849C65F22567C5B007068BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F866F1EA22BC3DAD006A17A8 /* Questionnaire3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Questionnaire3ViewController.swift; sourceTree = "<group>"; };
 		F8B97FC8228EF0FF00409A1D /* QuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireViewController.swift; sourceTree = "<group>"; };
 		F8FD28042281D93B00BFB8AA /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		F8FD28062281D96C00BFB8AA /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				F849C65322567C59007068BF /* AppDelegate.swift */,
 				F849C65722567C59007068BF /* Main.storyboard */,
+				F866F1EA22BC3DAD006A17A8 /* Questionnaire3ViewController.swift */,
 				F81396A5229E00A100A101B8 /* Questionnaire2ViewController.swift */,
 				F8B97FC8228EF0FF00409A1D /* QuestionnaireViewController.swift */,
 				F8FD28082281EC0A00BFB8AA /* WelcomeViewController.swift */,
@@ -207,6 +210,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -217,6 +221,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -234,6 +239,7 @@
 			files = (
 				F8FD28052281D93B00BFB8AA /* LogInViewController.swift in Sources */,
 				F8B97FC9228EF0FF00409A1D /* QuestionnaireViewController.swift in Sources */,
+				F866F1EB22BC3DAD006A17A8 /* Questionnaire3ViewController.swift in Sources */,
 				F8FD28092281EC0A00BFB8AA /* WelcomeViewController.swift in Sources */,
 				F81396A6229E00A100A101B8 /* Questionnaire2ViewController.swift in Sources */,
 				F8FD28072281D96C00BFB8AA /* RegistrationViewController.swift in Sources */,

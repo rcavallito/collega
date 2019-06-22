@@ -8,11 +8,11 @@
 
 import UIKit
 import Firebase
+import SwiftyJSON
 
 class Questionnaire2ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
     
-    
+    @IBOutlet weak var additionalInformationTextLabel: UILabel!
     @IBOutlet weak var studentSexPickerView: UIPickerView!
     
     let studentSexArray = ["Male", "Female", "Genderqueer/Non-Binary", "Rather Not Say"]
@@ -20,16 +20,28 @@ class Questionnaire2ViewController: UIViewController, UIPickerViewDelegate, UIPi
     var ref:DatabaseReference?
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         ref = Database.database().reference()
         
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value {
+                let json = JSON(value)
+                let studentFirstName = (json["StudentFirstName"].stringValue)
+                
+                self.additionalInformationTextLabel.text = "Terrific \(studentFirstName), now let's move on to some additional questions that will help us find the best fit for you:"
+        
+            }
+            
+        })
         
         studentSexPickerView.delegate = self
         studentSexPickerView.dataSource = self
         
     }
-    
+        
     //This is for the UIPicker View
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -56,11 +68,10 @@ class Questionnaire2ViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     @IBAction func submitStudentSexQuestionnairePressed(_ sender: UIButton) {
         
-    
-        let studentSex = ["StudentID" : Auth.auth().currentUser!.email!,  "StudentSex" : studentSexPickerView.selectedRow(inComponent: 0)] as [String : Any]
+        guard let curUserId = Auth.auth().currentUser?.uid else { return }
+    ref?.child("Students").child(curUserId).child("StudentSex").setValue(studentSexPickerView.selectedRow(inComponent: 0))
         
-        //ref?.child("Students").child("StudentInformation").childByAutoId().setValue(studentInformation)
-        ref?.child("Students").child("StudentSex").childByAutoId().setValue(studentSex)
+        //performSegue(withIdentifier: "goToQuestionnaire3", sender: self)
+        
     }
-    
 }
