@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SwiftyJSON
 
 class Questionnaire3ViewController: UIViewController {
     
@@ -19,6 +20,7 @@ class Questionnaire3ViewController: UIViewController {
     var middleEasternEthnicity : String = "false"
     var nativeHawaiianEthnicity : String = "false"
     var otherEthnicity : String = "false"
+    @IBOutlet weak var ethnicityInformationTextLabel: UILabel!
     
     @IBAction func whiteEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
@@ -100,7 +102,19 @@ class Questionnaire3ViewController: UIViewController {
         super.viewDidLoad()
         
         ref = Database.database().reference()
-
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value {
+                let json = JSON(value)
+                let studentFirstName = (json["StudentFirstName"].stringValue)
+                
+                self.ethnicityInformationTextLabel.text = "\(studentFirstName), which category or categories best describe you (you can select more than one):"
+                
+            }
+            
+        })
+    
     }
     
     //Send the data to Firebase
@@ -111,7 +125,9 @@ class Questionnaire3ViewController: UIViewController {
         
         let studentEthnicity = ["White" : whiteEthnicity, "HispanicLatinoSpanish" : hispanicEthnicity, "BlackAfricanAmerican" : blackEthnicity, "Asian" : asianEthnicity, "AmericanIndianAlaskaNative" : americanIndianEthnicity, "MiddleEasternNorthAfrican" : middleEasternEthnicity, "NativeHawaiianOtherPacific" : nativeHawaiianEthnicity, "Other" : otherEthnicity] as [String : Any]
         
-        ref?.child("Students").child(curUserId).child("StudentEthnicity").setValue(studentEthnicity)
+        ref?.child("Students").child(curUserId).child("StudentEthnicityInformation").setValue(studentEthnicity)
+        
+        performSegue(withIdentifier: "goToFamilyQuestionnaire", sender: self)
     }
 
 }

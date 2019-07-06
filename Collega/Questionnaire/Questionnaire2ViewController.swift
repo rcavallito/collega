@@ -15,8 +15,8 @@ class Questionnaire2ViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var additionalInformationTextLabel: UILabel!
     @IBOutlet weak var studentSexPickerView: UIPickerView!
     
-    let studentSexArray = ["Male", "Female", "Genderqueer/Non-Binary", "Rather Not Say"]
-    
+    let studentSexArray = ["-Select One-", "Male", "Female", "Genderqueer/Non-Binary", "Rather Not Say"]
+    var studentDefinedSex = ""
     var ref:DatabaseReference?
     
     override func viewDidLoad() {
@@ -56,22 +56,29 @@ class Questionnaire2ViewController: UIViewController, UIPickerViewDelegate, UIPi
         return studentSexArray[row]
     }
     
-    //This is for when we take the data selected and do something with it:
-    
+    //This is where we take the data selected and put it into an array
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print(studentSexArray[row])
+        studentDefinedSex = studentSexArray[row]
+    }
+    
+    //This is for user Skip to next screen
+    
+    @IBAction func skipToEthnicQuestionnaireScreen(_ sender: UIButton) {
+        guard let curUserId = Auth.auth().currentUser?.uid else { return }
+        ref?.child("Students").child(curUserId).child("StudentSex").setValue("skipped")
+        
+        performSegue(withIdentifier: "goToEthnicityQuestionnaireScreen", sender: self)
     }
     
     
     //This is where we send data to Firebase
     
-    
     @IBAction func submitStudentSexQuestionnairePressed(_ sender: UIButton) {
         
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
-    ref?.child("Students").child(curUserId).child("StudentSex").setValue(studentSexPickerView.selectedRow(inComponent: 0))
+    ref?.child("Students").child(curUserId).child("StudentSex").setValue(studentDefinedSex)
         
-        //performSegue(withIdentifier: "goToQuestionnaire3", sender: self)
-        
+        performSegue(withIdentifier: "goToEthnicityQuestionnaireScreen", sender: self)
     }
 }

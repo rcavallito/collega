@@ -17,18 +17,12 @@ class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //emailAddressTextField.delegate = self
-        //passwordTextField.delegate = self
-        
-        //FirebaseApp.configure()
-        
+    
     }
     
     @IBAction func registerNewUserPressed(_ sender: UIButton) {
         
         Auth.auth().createUser(withEmail: emailAddressTextField.text!, password: passwordTextField.text!) { (user, error) in
-
-//Note to change Segue off of Register button in order to enforce Registration constraints (email and password). Keep like this for testing purposes.
             
             if error == nil{
                 self.performSegue(withIdentifier: "goToWelcomeScreen", sender: self)
@@ -36,11 +30,9 @@ class RegistrationViewController: UIViewController {
             else{
                 let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
             }
-
             self.textFieldShouldReturn(self.passwordTextField)
             
         }

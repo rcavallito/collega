@@ -1,5 +1,5 @@
 //
-//  QuestionnaireViewController.swift
+//  GeneralInformationQuestionnaireViewController.swift
 //  Collega
 //
 //  Created by Robert Cavallito on 5/17/19.
@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class QuestionnaireViewController: UIViewController {
+class GeneralInformationQuestionnaireViewController: UIViewController {
 
     @IBOutlet weak var studentFirstNameTextField: UITextField!
     @IBOutlet weak var studentLastNameTextField: UITextField!
@@ -38,7 +38,7 @@ class QuestionnaireViewController: UIViewController {
         
         ref?.child("Students").child(curUserId).setValue(studentInformation)
         
-        //performSegue(withIdentifier : "goToQuestionnaire2", sender: self)
+        performSegue(withIdentifier : "goToSexQuestionnaireScreen", sender: self)
     }
     
 }
