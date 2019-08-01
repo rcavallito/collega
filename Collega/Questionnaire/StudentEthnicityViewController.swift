@@ -1,5 +1,5 @@
 //
-//  Questionnaire3ViewController.swift
+//  StudentEthnicityViewController.swift
 //  Collega
 //
 //  Created by Robert Cavallito on 6/20/19.
@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import SwiftyJSON
 
-class Questionnaire3ViewController: UIViewController {
+class StudentEthnicityViewController: UIViewController {
     
     var whiteEthnicity : String = "false"
     var hispanicEthnicity : String = "false"
@@ -76,7 +76,6 @@ class Questionnaire3ViewController: UIViewController {
         }
     }
     
-    
     @IBAction func hawaiianPacificEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
             nativeHawaiianEthnicity = "true"
@@ -95,7 +94,6 @@ class Questionnaire3ViewController: UIViewController {
         }
     }
     
-    
     var ref:DatabaseReference?
 
     override func viewDidLoad() {
@@ -103,22 +101,30 @@ class Questionnaire3ViewController: UIViewController {
         
         ref = Database.database().reference()
         
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value {
-                let json = JSON(value)
-                let studentFirstName = (json["StudentFirstName"].stringValue)
-                
-                self.ethnicityInformationTextLabel.text = "\(studentFirstName), which category or categories best describe you (you can select more than one):"
-                
+        
+//Originally had each instance of using the name as a call into Firebase, but have switched to UserDefaults ...
+//        guard let userID = Auth.auth().currentUser?.uid else { return }
+//        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+//            if let value = snapshot.value {
+//                let json = JSON(value)
+//                let studentFirstName = (json["StudentFirstName"].stringValue)
+        
+        //This is the use of NSUserDefaults stored from the prior VC
+        if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
+            self.ethnicityInformationTextLabel.text = "\(studentFirstName), which category or categories best describe you (you can select more than one):"
+        }
+        
+        
             }
-            
-        })
+//        })
+//    }
     
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromEthnicity(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromEthnicityQuestionnaire", sender: self)
     }
     
     //Send the data to Firebase
-
     @IBAction func submitStudentEthnicityPressed(_ sender: UIButton) {
         
         guard let curUserId = Auth.auth().currentUser?.uid else { return }

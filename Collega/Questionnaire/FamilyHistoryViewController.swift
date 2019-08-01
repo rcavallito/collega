@@ -17,7 +17,7 @@ class FamilyHistoryViewController: UIViewController, UIPickerViewDelegate, UIPic
     @IBOutlet weak var householdIncomePickerView: UIPickerView!
     
     let parentsEducationLevelArray = ["-Select One-", "Both parents graduated college", "One parent graduated college", "Both parents some college", "One parent some college", "Neither parent graduated college"]
-    let householdIncomeArray = ["-Select One-", "<$25,000", "$25,001 - $45,000", "$45,001 - $75,000", "$75,000 - $115,000", ">$115,000"]
+    let householdIncomeArray = ["-Select One-", "<$30,000", "$30,001 - $48,000", "$48,001 - $75,000", "$75,000 - $110,000", ">$110,000"]
     var parentsEducationLevel = ""
     var householdIncome = ""
     var ref:DatabaseReference?
@@ -43,11 +43,8 @@ class FamilyHistoryViewController: UIViewController, UIPickerViewDelegate, UIPic
                 let studentFirstName = (json["StudentFirstName"].stringValue)
 
                 self.familyInformationTextLabel.text = "\(studentFirstName), now we need to ask you some questions about your family:"
-
                     }
-
                 })
-    
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -81,9 +78,13 @@ class FamilyHistoryViewController: UIViewController, UIPickerViewDelegate, UIPic
         print(householdIncome)
         }
     }
+        
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromFamilyQuestionnaire(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromFamilyQuestionnaire", sender: self)
+    }
 
-    
-// This is where we send data to Firebase
+//Send data to Firebase
     
     @IBAction func submitFamilyInformationPressed(_ sender: UIButton) {
 

@@ -44,16 +44,26 @@ class ACTPlansViewController: UIViewController {
         }
     }
     
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromACTPlansQuestionnaire(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromACTPlansQuestionnaire", sender: self)
+    }
+    
+    //Help me decide
+    @IBAction func helpMeDecideFromACTPlans(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToAboutSATACTFromACTPlans", sender: self)
+    }
+    
+    
     //Submits the student's answer to Firebase and takes them to the next appropriate screen
     @IBAction func submitPlanOnTakingACTPressed(_ sender: UIButton) {
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
     ref?.child("Students").child(curUserId).child("StudentACTInformation").updateChildValues(["PlanOnTakingACT" : planOnTakingACT, "PlanOnTakingACTTimeStamp" : ServerValue.timestamp()])
         
-        //define once segues are established
-        //        if planOnTakingSAT == "true" {
-        //            performSegue(withIdentifier: "goToSATScoresFromPSATQuestionnaire", sender: self)
-        //        } else {
-        //            performSegue(withIdentifier: "goToTakingSATQuestionnaire", sender: self)
-        //        }
+                if planOnTakingACT == "true" {
+                    performSegue(withIdentifier: "goToFinishedFromPlanningOnTakingACT", sender: self)
+                } else {
+                    performSegue(withIdentifier: "goToAboutSATACTFromACTPlans", sender: self)
+                }
     }
 }

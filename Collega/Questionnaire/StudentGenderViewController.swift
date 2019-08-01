@@ -1,5 +1,5 @@
 //
-//  Questionnaire2ViewController.swift
+//  StudentGenderViewController.swift
 //  Collega
 //
 //  Created by Robert Cavallito on 5/28/19.
@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import SwiftyJSON
 
-class Questionnaire2ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class StudentGenderViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var additionalInformationTextLabel: UILabel!
     @IBOutlet weak var studentSexPickerView: UIPickerView!
@@ -32,6 +32,8 @@ class Questionnaire2ViewController: UIViewController, UIPickerViewDelegate, UIPi
                 let studentFirstName = (json["StudentFirstName"].stringValue)
                 
                 self.additionalInformationTextLabel.text = "Terrific \(studentFirstName), now let's move on to some additional questions that will help us find the best fit for you:"
+                //Setting the name in UserDefaults for use later on
+                UserDefaults.standard.set(studentFirstName, forKey: "studentFirstName")
         
             }
             
@@ -43,7 +45,6 @@ class Questionnaire2ViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
         
     //This is for the UIPicker View
-    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -62,18 +63,12 @@ class Questionnaire2ViewController: UIViewController, UIPickerViewDelegate, UIPi
         studentDefinedSex = studentSexArray[row]
     }
     
-    //This is for user Skip to next screen
-    
-    @IBAction func skipToEthnicQuestionnaireScreen(_ sender: UIButton) {
-        guard let curUserId = Auth.auth().currentUser?.uid else { return }
-        ref?.child("Students").child(curUserId).child("StudentSex").setValue("skipped")
-        
-        performSegue(withIdentifier: "goToEthnicityQuestionnaireScreen", sender: self)
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromSexVC(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromSexQuestionnaire", sender: self)
     }
     
-    
-    //This is where we send data to Firebase
-    
+    //Send data to Firebase
     @IBAction func submitStudentSexQuestionnairePressed(_ sender: UIButton) {
         
         guard let curUserId = Auth.auth().currentUser?.uid else { return }

@@ -26,12 +26,10 @@ class SATScoresQuestionnaireViewController: UIViewController {
     @IBOutlet weak var sliderSATEssay3Score: UISlider!
     @IBOutlet weak var sliderSATEssay3ScoreResult: UILabel!
     
-    
     let step: Float = 10
 
     var ref:DatabaseReference?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +38,6 @@ class SATScoresQuestionnaireViewController: UIViewController {
         sliderSATEssay1ScoreResult.text = "Score"
         sliderSATEssay2ScoreResult.text = "Score"
         sliderSATEssay3ScoreResult.text = "Score"
-        
         
         //The opening paragraph which calls the Student's first name from Firebase
         ref = Database.database().reference()
@@ -89,10 +86,13 @@ class SATScoresQuestionnaireViewController: UIViewController {
         sliderSATEssay3Score.value = roundedEssay3Value
         sliderSATEssay3ScoreResult.text = String(Int(sliderSATEssay3Score.value))
     }
-    
+
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromSATScoresQuestionnaire(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromSATScoresQuestionnaire", sender: self)
+    }
     
     //Sends SAT score information to Firebase
-    
     @IBAction func submitSATScoresPressed(_ sender: UIButton) {
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
 

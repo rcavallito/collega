@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:QuestionnaireFinishedViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:Collega.xcodeproj">
    </FileRef>
    <FileRef

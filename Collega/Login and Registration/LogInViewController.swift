@@ -16,13 +16,28 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        passwordLoginTextField.delegate = self
         
+        emailLoginTextField.delegate = self
+        passwordLoginTextField.delegate = self
     }
 
     @IBAction func loginButtonPressed(_ sender: Any) {
-        
+        logInUser()
+}
+    
+        //Allows user to toggle to next Text field or perform function by hitting Enter/Go on keyboard, then dismisses keyboard when done editing
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            if textField == emailLoginTextField {
+                passwordLoginTextField.becomeFirstResponder()
+            } else {
+            passwordLoginTextField.resignFirstResponder()
+            logInUser()
+            }
+            return true
+        }
+    
+    //Function to login a user
+    func logInUser() {
         Auth.auth().signIn(withEmail: emailLoginTextField.text!, password: passwordLoginTextField.text!) { (user, error) in
             
             if error == nil{
@@ -35,15 +50,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
             }
-            
-        self.textFieldShouldReturn(self.passwordLoginTextField!)
-    }
-    
-}
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
+        }
     }
 }
 

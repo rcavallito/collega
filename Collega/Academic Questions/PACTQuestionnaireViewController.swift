@@ -43,6 +43,11 @@ class PACTQuestionnaireViewController: UIViewController {
         }
     }
     
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromPACTQuestionnaire(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromACTQuestionnaire", sender: self)
+    }
+    
     //Submits the student's answer to Firebase and takes them to the next appropriate screen
     @IBAction func submitPACTTakenPressed(_ sender: UIButton) {
         guard let curUserId = Auth.auth().currentUser?.uid else { return }

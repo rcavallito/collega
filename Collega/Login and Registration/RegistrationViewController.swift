@@ -10,18 +10,34 @@ import UIKit
 import Firebase
 //import FirebaseAuth
 
-class RegistrationViewController: UIViewController {
+class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        passwordTextField.delegate = self
+        emailAddressTextField.delegate = self
     }
     
     @IBAction func registerNewUserPressed(_ sender: UIButton) {
-        
+        registerNewUser()
+    }
+    
+    //Allows user to toggle to next Text field or executing button action by hitting Enter/Go on keyboard; also dismisses keyboard when done editing
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailAddressTextField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            passwordTextField.resignFirstResponder()
+            registerNewUser()
+        }
+        return true
+    }
+    
+    //Function to register a new user
+    func registerNewUser() {
         Auth.auth().createUser(withEmail: emailAddressTextField.text!, password: passwordTextField.text!) { (user, error) in
             
             if error == nil{
@@ -33,13 +49,6 @@ class RegistrationViewController: UIViewController {
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
             }
-            self.textFieldShouldReturn(self.passwordTextField)
-            
         }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
     }
 }

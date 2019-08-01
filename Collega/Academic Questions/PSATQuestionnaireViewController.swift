@@ -43,6 +43,11 @@ class PSATQuestionnaireViewController: UIViewController {
         }
     }
     
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromPSATQuestionnaire(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromPSATQuestionnaire", sender: self)
+    }
+    
     //Submits the student's answer to Firebase and takes them to the next appropriate screen
     @IBAction func submitPSATTakenPressed(_ sender: UIButton) {
     

@@ -86,14 +86,18 @@ class ACTScoresQuestionnaireViewController: UIViewController {
         sliderACTEssayScoreResult.text = String(Int(sliderACTEssayScore.value))
     }
     
-    
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromACTScoresQuestionnaire(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromACTScoresQuestionnaire", sender: self)
+    }
+
     //Sends ACT score information to Firebase
     @IBAction func submitACTScoresPressed(_ sender: UIButton) {
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
         
         let studentACTScores = ["StudentEnglishACTScore" : sliderACTEnglishScore.value, "StudentMathACTScore" : sliderACTMathScore.value, "StudentReadingACTScore" : sliderACTReadingScore.value, "StudentScienceACTScore" : sliderACTScienceScore.value, "StudentEssayACTScore" : sliderACTEssayScore.value] as [String : Any]
-        
         ref?.child("Students").child(curUserId).child("StudentACTInformation").updateChildValues(studentACTScores)
+        
+        performSegue(withIdentifier: "goToQuestionnaireCompleted", sender: self)
     }
-    
 }

@@ -31,15 +31,12 @@ class GPAQuestionnaireViewController: UIViewController {
                 let studentFirstName = (json["StudentFirstName"].stringValue)
                 
                 self.gpaInformationTextLabel.text = "Terrific \(studentFirstName), now we need to know a little more about your academic situation:"
-                
             }
-            
         })
-
     }
     
+    //Send data to Firebase
     @IBAction func submitGPAInformationPressed(_ sender: UIButton) {
-        
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
         
         let studentGPAInformation = ["StudentUnweightedGPA" : studentUnweightedGPATextField.text!, "StudentWeightedGPA" : studentWeightedGPATextField.text!, "StudentGPAScale" : studentScaleGPATextField.text!] as [String : Any]
@@ -48,5 +45,4 @@ class GPAQuestionnaireViewController: UIViewController {
         
         performSegue(withIdentifier: "goToSATQuestionnaire", sender: self)
     }
-    
 }

@@ -43,18 +43,24 @@ class SATPlansViewController: UIViewController {
         }
     }
     
-    //Submits the student's answer to Firebase and takes them to the next appropriate screen
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromSATPlansQuestionnaire(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromPSATQuestionnaire", sender: self)
+    }
     
+    //Help me decide
+    @IBAction func helpMeDecideFromSATPlans(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToAboutSATACTFromSATPlans", sender: self)
+    }
+    
+    
+    //Submits the student's answer to Firebase and takes them to the next appropriate screen
     @IBAction func submitPlanOnTakingSATPressed(_ sender: UIButton) {
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
         
         //New code that allows for timestamp and sets TakenSAT as value under StudentSATInformation as opposed to original which sets it as a child
         ref?.child("Students").child(curUserId).child("StudentSATInformation").updateChildValues(["PlanOnTakingSAT" : planOnTakingSAT, "PlanOnTakingSATTimeStamp" : ServerValue.timestamp()])
         
-        if planOnTakingSAT == "true" {
             performSegue(withIdentifier: "goToACTQuestionnaireFromSATPlans", sender: self)
-        } else {
-            performSegue(withIdentifier: "goToAboutSATACTFromSATPlans", sender: self)
-        }
     }
 }
