@@ -20,17 +20,9 @@ class PSATQuestionnaireViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //The opening sentence which calls the Student's first name from Firebase
-        ref = Database.database().reference()
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value {
-                let json = JSON(value)
-                let studentFirstName = (json["StudentFirstName"].stringValue)
-                
-                self.psatInformationTextLabel.text = "Have you taken the PSAT, \(studentFirstName)?"
-            }
-        })
+        if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
+            self.psatInformationTextLabel.text = "Have you taken the PSAT, \(studentFirstName)?"
+        }
     }
     
     //Determine if the student has taken the PSAT yet

@@ -13,36 +13,45 @@ import SwiftyJSON
 class GPAQuestionnaireViewController: UIViewController {
 
     @IBOutlet weak var gpaInformationTextLabel: UILabel!
-    @IBOutlet weak var studentUnweightedGPATextField: UITextField!
-    @IBOutlet weak var studentWeightedGPATextField: UITextField!
-    @IBOutlet weak var studentScaleGPATextField: UITextField!
+
+    @IBOutlet weak var sliderUnweightedGPA: UISlider!
+    @IBOutlet weak var sliderUnweightedGPAResult: UILabel!
+    @IBOutlet weak var sliderWeightedGPA: UISlider!
+    @IBOutlet weak var sliderWeightedGPAResult: UILabel!
     
     var ref:DatabaseReference?
+    let step: Float = 0.01
+    var studentUnweightedGPA : Float = 0.00
+    var studentWeightedGPA : Float = 0.00
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ref = Database.database().reference()
-        
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value {
-                let json = JSON(value)
-                let studentFirstName = (json["StudentFirstName"].stringValue)
-                
-                self.gpaInformationTextLabel.text = "Terrific \(studentFirstName), now we need to know a little more about your academic situation:"
-            }
-        })
+        if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
+            self.gpaInformationTextLabel.text = "Terrific \(studentFirstName), now we need to know a little more about your academic situation:"
+        }
     }
     
+    @IBAction func unweightedGPASliderValueChanged(_ sender: UISlider) {
+        let roundedUnweightedGPA = round(sliderUnweightedGPA.value / step) * step
+        sliderUnweightedGPA.value = roundedUnweightedGPA
+        sliderUnweightedGPAResult.text = String(format: "%.2f", sliderUnweightedGPA.value)
+    }
+    
+    @IBAction func weightedGPASliderValueChanged(_ sender: UISlider) {
+        let roundedWeightedGPA = round(sliderWeightedGPA.value / step) * step
+        sliderWeightedGPA.value = roundedWeightedGPA
+        sliderWeightedGPAResult.text = String(format: "%.2f", sliderWeightedGPA.value)
+    }
+
     //Send data to Firebase
     @IBAction func submitGPAInformationPressed(_ sender: UIButton) {
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
-        
-        let studentGPAInformation = ["StudentUnweightedGPA" : studentUnweightedGPATextField.text!, "StudentWeightedGPA" : studentWeightedGPATextField.text!, "StudentGPAScale" : studentScaleGPATextField.text!] as [String : Any]
-        
+
+        let studentGPAInformation = ["StudentUnweightedGPA" : String(format: "%.2f", sliderUnweightedGPA.value), "StudentWeightedGPA" : String(format: "%.2f", sliderWeightedGPA.value)] as [String : Any]
+
         ref?.child("Students").child(curUserId).child("StudentGPAInformation").setValue(studentGPAInformation)
-        
+
         performSegue(withIdentifier: "goToSATQuestionnaire", sender: self)
     }
 }

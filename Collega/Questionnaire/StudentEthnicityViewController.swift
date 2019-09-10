@@ -99,25 +99,11 @@ class StudentEthnicityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ref = Database.database().reference()
-        
-        
-//Originally had each instance of using the name as a call into Firebase, but have switched to UserDefaults ...
-//        guard let userID = Auth.auth().currentUser?.uid else { return }
-//        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-//            if let value = snapshot.value {
-//                let json = JSON(value)
-//                let studentFirstName = (json["StudentFirstName"].stringValue)
-        
-        //This is the use of NSUserDefaults stored from the prior VC
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.ethnicityInformationTextLabel.text = "\(studentFirstName), which category or categories best describe you (you can select more than one):"
         }
-        
-        
-            }
-//        })
-//    }
+    }
+
     
     //This is for the "Why are you asking ... "
     @IBAction func whyAskingFromEthnicity(_ sender: UIButton) {

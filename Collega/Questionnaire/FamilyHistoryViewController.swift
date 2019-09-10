@@ -25,26 +25,9 @@ class FamilyHistoryViewController: UIViewController, UIPickerViewDelegate, UIPic
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        parentsEducationLevelPickerView.delegate = self
-        parentsEducationLevelPickerView.dataSource = self
-
-        householdIncomePickerView.delegate = self
-        householdIncomePickerView.dataSource = self
-        
-//        self.parentsEducationLevelPickerView.selectRow(0, inComponent: 0, animated: true)
-//        self.householdIncomePickerView.selectRow(0, inComponent: 0, animated: true)
-        
-        ref = Database.database().reference()
-
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value {
-                let json = JSON(value)
-                let studentFirstName = (json["StudentFirstName"].stringValue)
-
-                self.familyInformationTextLabel.text = "\(studentFirstName), now we need to ask you some questions about your family:"
-                    }
-                })
+        if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
+            self.familyInformationTextLabel.text = "\(studentFirstName), now we need to ask you some questions about your family:"
+        }
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -84,16 +67,13 @@ class FamilyHistoryViewController: UIViewController, UIPickerViewDelegate, UIPic
         performSegue(withIdentifier: "whyAskingFromFamilyQuestionnaire", sender: self)
     }
 
-//Send data to Firebase
+    //Send data to Firebase
     
     @IBAction func submitFamilyInformationPressed(_ sender: UIButton) {
 
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
 
         let familyInformation = ["ParentsEducationLevel" : parentsEducationLevel, "HouseholdIncome" : householdIncome] as [String : Any]
-        
-        
-//        let familyInformation = ["ParentsEducationLevel" : parentsEducationLevelPickerView.selectedRow(inComponent: 0), "HouseholdIncome" : householdIncomePickerView.selectedRow(inComponent: 0)] as [String : Any]
         ref?.child("Students").child(curUserId).child("StudentFamilyInformation").setValue(familyInformation)
 
         performSegue(withIdentifier: "goToGPAQuestionnaireScreen", sender: self)

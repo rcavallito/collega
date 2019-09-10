@@ -65,6 +65,18 @@ class CollegeDetailsViewController: UIViewController {
     @IBOutlet weak var m_lblAverageIncome10YearsAfterEntry: UILabel!
     @IBOutlet weak var m_lblThreeYearStudentLoanDefaultRate: UILabel!
     
+    //Image/Fav'ing a college
+    
+    let blankStar = UIImage(named: "star (1)")
+    let filledStar = UIImage(named: "star")
+    
+    @IBOutlet weak var favCollegeStar: UIButton!
+    @IBAction func favoriteCollegeStarButton(_ sender: UIButton) {
+        
+        sender.setImage(filledStar, for: .normal)
+    }
+    
+    
     
     //MARK: Dictionaries:
     let ownershipsDictionary = [1: "Public", 2: "Private Non-Profit", 3: "Private For-Profit"]
@@ -80,6 +92,10 @@ class CollegeDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        favCollegeStar.setImage(blankStar, for: .normal)
+        favCollegeStar.setImage(filledStar, for: .highlighted)
+        
     }
  
     override func viewWillAppear(_ animated: Bool) {
@@ -403,14 +419,29 @@ class CollegeDetailsViewController: UIViewController {
         } else {
             self.m_lblThreeYearStudentLoanDefaultRate.text = "N/A"
         }
-        
-        
+
 }
+    
+    //Sending text forward
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var myChancesViewController = segue.destination as! MyChancesViewController
+        myChancesViewController.selectedCollegeID = selectedCollege["id"].stringValue
+    }
     
     //MARK: Buttons
     @IBAction func btnBackClicked(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        
+        //DELETE AFTER TESTING - This is only necessary when testing in situations where App is started before Nav Controller
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
+    @IBAction func btnMyChancesClicked(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToMyChancesFromCollegeInformation", sender: self)
+    }
+    
+    
 
 }
 

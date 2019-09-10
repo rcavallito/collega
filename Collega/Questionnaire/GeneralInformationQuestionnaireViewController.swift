@@ -25,9 +25,6 @@ class GeneralInformationQuestionnaireViewController: UIViewController, UITextFie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        studentStatePickerView.delegate = self
-        studentStatePickerView.dataSource = self
-        
         ref = Database.database().reference()
         studentExpectedGraduationYearTextField.delegate = self
         studentHomeZipCodeTextField.delegate = self
@@ -55,7 +52,6 @@ class GeneralInformationQuestionnaireViewController: UIViewController, UITextFie
     
     //This is where we take the data selected and put it into an array
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(stateArray[row])
         studentState = stateArray[row]
     }
     
@@ -106,6 +102,8 @@ class GeneralInformationQuestionnaireViewController: UIViewController, UITextFie
             "StudentHomeZipCode" : studentHomeZipCodeTextField.text!, "StudentGraduationYear" : studentExpectedGraduationYearTextField.text!] as [String : Any]
                 
         ref?.child("Students").child(curUserId).setValue(studentInformation)
+        
+        UserDefaults.standard.set(studentFirstNameTextField.text!, forKey: "studentFirstName")
         
         performSegue(withIdentifier : "goToSexQuestionnaireScreen", sender: self)
     }

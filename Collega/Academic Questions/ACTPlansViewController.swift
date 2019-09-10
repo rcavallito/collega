@@ -20,17 +20,9 @@ class ACTPlansViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //The opening sentence which calls the Student's first name from Firebase
-        ref = Database.database().reference()
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value {
-                let json = JSON(value)
-                let studentFirstName = (json["StudentFirstName"].stringValue)
-                
-                self.planOnTakingACTTextLabel.text = "Are you planning on taking the ACT, \(studentFirstName)?"
-            }
-        })
+        if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
+            self.planOnTakingACTTextLabel.text = "Are you planning on taking the ACT, \(studentFirstName)?"
+        }
     }
     
     //Determine if the student plans on taking the SAT

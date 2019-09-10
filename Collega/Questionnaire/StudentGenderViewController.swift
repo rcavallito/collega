@@ -23,25 +23,9 @@ class StudentGenderViewController: UIViewController, UIPickerViewDelegate, UIPic
         
         super.viewDidLoad()
         
-        ref = Database.database().reference()
-        
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value {
-                let json = JSON(value)
-                let studentFirstName = (json["StudentFirstName"].stringValue)
-                
-                self.additionalInformationTextLabel.text = "Terrific \(studentFirstName), now let's move on to some additional questions that will help us find the best fit for you:"
-                //Setting the name in UserDefaults for use later on
-                UserDefaults.standard.set(studentFirstName, forKey: "studentFirstName")
-        
-            }
-            
-        })
-        
-        studentSexPickerView.delegate = self
-        studentSexPickerView.dataSource = self
-        
+        if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
+            self.additionalInformationTextLabel.text = "Terrific \(studentFirstName), now let's move on to some additional questions that will help us find the best fit for you:"
+        }
     }
         
     //This is for the UIPicker View
@@ -59,7 +43,6 @@ class StudentGenderViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     //This is where we take the data selected and put it into an array
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(studentSexArray[row])
         studentDefinedSex = studentSexArray[row]
     }
     

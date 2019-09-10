@@ -39,17 +39,9 @@ class SATScoresQuestionnaireViewController: UIViewController {
         sliderSATEssay2ScoreResult.text = "Score"
         sliderSATEssay3ScoreResult.text = "Score"
         
-        //The opening paragraph which calls the Student's first name from Firebase
-        ref = Database.database().reference()
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value {
-                let json = JSON(value)
-                let studentFirstName = (json["StudentFirstName"].stringValue)
-                
-                self.satScoresInformationTextLabel.text = "Now \(studentFirstName), how did you do?"
-            }
-        })
+        if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
+            self.satScoresInformationTextLabel.text = "Now \(studentFirstName), how did you do?"
+        }
     }
     
     //Slider for Reading/Writing scores

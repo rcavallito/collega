@@ -9,8 +9,12 @@
 /* Begin PBXBuildFile section */
 		F1E491BC9F82131D55D7605A /* Pods_Collega.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E2AF29C4DA7037FBCF1BB8E /* Pods_Collega.framework */; };
 		F8006311228223A3001F8845 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F8006310228223A3001F8845 /* GoogleService-Info.plist */; };
+		F808EA9E22FB39E300C5C058 /* UpdateSATScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808EA9D22FB39E300C5C058 /* UpdateSATScoresViewController.swift */; };
+		F808EAA022FB695900C5C058 /* UpdateACTScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808EA9F22FB695900C5C058 /* UpdateACTScoresViewController.swift */; };
 		F81396A6229E00A100A101B8 /* StudentGenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81396A5229E00A100A101B8 /* StudentGenderViewController.swift */; };
 		F817121E22D7DD91002C8FCC /* CollegeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F817121D22D7DD91002C8FCC /* CollegeDetailsViewController.swift */; };
+		F81EE06A22FC765200EA13FA /* UpdateFamilyIncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81EE06922FC765200EA13FA /* UpdateFamilyIncomeViewController.swift */; };
+		F83ECCA922F3530900E37F21 /* MyChancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83ECCA822F3530900E37F21 /* MyChancesViewController.swift */; };
 		F841970122C507CA00681120 /* SATScoresQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F841970022C507CA00681120 /* SATScoresQuestionnaireViewController.swift */; };
 		F849C65422567C59007068BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F849C65322567C59007068BF /* AppDelegate.swift */; };
 		F849C65922567C59007068BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F849C65722567C59007068BF /* Main.storyboard */; };
@@ -20,6 +24,7 @@
 		F86D57C122CA67C100A87CF5 /* SATQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86D57C022CA67C100A87CF5 /* SATQuestionnaireViewController.swift */; };
 		F86D57C322CA67D200A87CF5 /* PSATQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86D57C222CA67D200A87CF5 /* PSATQuestionnaireViewController.swift */; };
 		F86D57C722CA689800A87CF5 /* SATPlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86D57C622CA689800A87CF5 /* SATPlansViewController.swift */; };
+		F88B8A5B2325C37A00D41AF2 /* UpdateGPAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B8A5A2325C37A00D41AF2 /* UpdateGPAViewController.swift */; };
 		F89951C522EF62F20008F2B6 /* CollegeSearchCostConcernsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89951C422EF62F20008F2B6 /* CollegeSearchCostConcernsViewController.swift */; };
 		F8A4431522CFBB8300100720 /* ACTQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4431422CFBB8300100720 /* ACTQuestionnaireViewController.swift */; };
 		F8A4431722CFD63900100720 /* PACTQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4431622CFD63900100720 /* PACTQuestionnaireViewController.swift */; };
@@ -32,6 +37,11 @@
 		F8C5776422C1285A00E43851 /* FamilyHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C5776322C1285A00E43851 /* FamilyHistoryViewController.swift */; };
 		F8C5776622C1727300E43851 /* WelcomeBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C5776522C1727300E43851 /* WelcomeBackViewController.swift */; };
 		F8DA0FE622C4DDC100545120 /* GPAQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DA0FE522C4DDC100545120 /* GPAQuestionnaireViewController.swift */; };
+		F8DCBEDF22FE051A00F86467 /* UpdateStudentSexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DCBEDE22FE051A00F86467 /* UpdateStudentSexViewController.swift */; };
+		F8DCBEE122FE054C00F86467 /* UpdateParentsEducationLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DCBEE022FE054C00F86467 /* UpdateParentsEducationLevelViewController.swift */; };
+		F8DCBEE322FE056A00F86467 /* UpdateStudentEthnicityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DCBEE222FE056A00F86467 /* UpdateStudentEthnicityViewController.swift */; };
+		F8EF14D722F8714E0016B2A6 /* DistanceParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF14D622F8714E0016B2A6 /* DistanceParametersViewController.swift */; };
+		F8EF14DB22FB18870016B2A6 /* ConfirmPersonalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF14DA22FB18860016B2A6 /* ConfirmPersonalInformationViewController.swift */; };
 		F8FD28052281D93B00BFB8AA /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FD28042281D93B00BFB8AA /* LogInViewController.swift */; };
 		F8FD28072281D96C00BFB8AA /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FD28062281D96C00BFB8AA /* RegistrationViewController.swift */; };
 		F8FD28092281EC0A00BFB8AA /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FD28082281EC0A00BFB8AA /* WelcomeViewController.swift */; };
@@ -42,8 +52,12 @@
 		537BBDE89291835477F50128 /* Pods-Collega.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Collega.release.xcconfig"; path = "Target Support Files/Pods-Collega/Pods-Collega.release.xcconfig"; sourceTree = "<group>"; };
 		ABF9009FE7010CCB6793CB5A /* Pods-Collega.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Collega.debug.xcconfig"; path = "Target Support Files/Pods-Collega/Pods-Collega.debug.xcconfig"; sourceTree = "<group>"; };
 		F8006310228223A3001F8845 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F808EA9D22FB39E300C5C058 /* UpdateSATScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSATScoresViewController.swift; sourceTree = "<group>"; };
+		F808EA9F22FB695900C5C058 /* UpdateACTScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateACTScoresViewController.swift; sourceTree = "<group>"; };
 		F81396A5229E00A100A101B8 /* StudentGenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentGenderViewController.swift; sourceTree = "<group>"; };
 		F817121D22D7DD91002C8FCC /* CollegeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeDetailsViewController.swift; sourceTree = "<group>"; };
+		F81EE06922FC765200EA13FA /* UpdateFamilyIncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFamilyIncomeViewController.swift; sourceTree = "<group>"; };
+		F83ECCA822F3530900E37F21 /* MyChancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChancesViewController.swift; sourceTree = "<group>"; };
 		F841970022C507CA00681120 /* SATScoresQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SATScoresQuestionnaireViewController.swift; sourceTree = "<group>"; };
 		F849C65022567C59007068BF /* Collega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Collega.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F849C65322567C59007068BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +69,7 @@
 		F86D57C022CA67C100A87CF5 /* SATQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SATQuestionnaireViewController.swift; sourceTree = "<group>"; };
 		F86D57C222CA67D200A87CF5 /* PSATQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSATQuestionnaireViewController.swift; sourceTree = "<group>"; };
 		F86D57C622CA689800A87CF5 /* SATPlansViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SATPlansViewController.swift; sourceTree = "<group>"; };
+		F88B8A5A2325C37A00D41AF2 /* UpdateGPAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGPAViewController.swift; sourceTree = "<group>"; };
 		F89951C422EF62F20008F2B6 /* CollegeSearchCostConcernsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeSearchCostConcernsViewController.swift; sourceTree = "<group>"; };
 		F8A4431422CFBB8300100720 /* ACTQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACTQuestionnaireViewController.swift; sourceTree = "<group>"; };
 		F8A4431622CFD63900100720 /* PACTQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACTQuestionnaireViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +82,11 @@
 		F8C5776322C1285A00E43851 /* FamilyHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyHistoryViewController.swift; sourceTree = "<group>"; };
 		F8C5776522C1727300E43851 /* WelcomeBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackViewController.swift; sourceTree = "<group>"; };
 		F8DA0FE522C4DDC100545120 /* GPAQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPAQuestionnaireViewController.swift; sourceTree = "<group>"; };
+		F8DCBEDE22FE051A00F86467 /* UpdateStudentSexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStudentSexViewController.swift; sourceTree = "<group>"; };
+		F8DCBEE022FE054C00F86467 /* UpdateParentsEducationLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateParentsEducationLevelViewController.swift; sourceTree = "<group>"; };
+		F8DCBEE222FE056A00F86467 /* UpdateStudentEthnicityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStudentEthnicityViewController.swift; sourceTree = "<group>"; };
+		F8EF14D622F8714E0016B2A6 /* DistanceParametersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DistanceParametersViewController.swift; path = ../DistanceParametersViewController.swift; sourceTree = "<group>"; };
+		F8EF14DA22FB18860016B2A6 /* ConfirmPersonalInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPersonalInformationViewController.swift; sourceTree = "<group>"; };
 		F8FD28042281D93B00BFB8AA /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		F8FD28062281D96C00BFB8AA /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		F8FD28082281EC0A00BFB8AA /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +202,16 @@
 				F8C15A6A22C2E74A004729DA /* CollegeSearch1ViewController.swift */,
 				F817121D22D7DD91002C8FCC /* CollegeDetailsViewController.swift */,
 				F89951C422EF62F20008F2B6 /* CollegeSearchCostConcernsViewController.swift */,
+				F83ECCA822F3530900E37F21 /* MyChancesViewController.swift */,
+				F8EF14D622F8714E0016B2A6 /* DistanceParametersViewController.swift */,
+				F8EF14DA22FB18860016B2A6 /* ConfirmPersonalInformationViewController.swift */,
+				F808EA9D22FB39E300C5C058 /* UpdateSATScoresViewController.swift */,
+				F808EA9F22FB695900C5C058 /* UpdateACTScoresViewController.swift */,
+				F81EE06922FC765200EA13FA /* UpdateFamilyIncomeViewController.swift */,
+				F8DCBEDE22FE051A00F86467 /* UpdateStudentSexViewController.swift */,
+				F8DCBEE022FE054C00F86467 /* UpdateParentsEducationLevelViewController.swift */,
+				F8DCBEE222FE056A00F86467 /* UpdateStudentEthnicityViewController.swift */,
+				F88B8A5A2325C37A00D41AF2 /* UpdateGPAViewController.swift */,
 			);
 			path = "College Search";
 			sourceTree = "<group>";
@@ -320,10 +350,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8A4431722CFD63900100720 /* PACTQuestionnaireViewController.swift in Sources */,
+				F88B8A5B2325C37A00D41AF2 /* UpdateGPAViewController.swift in Sources */,
 				F8FD28052281D93B00BFB8AA /* LogInViewController.swift in Sources */,
+				F81EE06A22FC765200EA13FA /* UpdateFamilyIncomeViewController.swift in Sources */,
+				F808EA9E22FB39E300C5C058 /* UpdateSATScoresViewController.swift in Sources */,
+				F83ECCA922F3530900E37F21 /* MyChancesViewController.swift in Sources */,
 				F8B97FC9228EF0FF00409A1D /* GeneralInformationQuestionnaireViewController.swift in Sources */,
 				F8BB7C2722D37A57008B04C9 /* TakingSATorACTViewController.swift in Sources */,
 				F866F1EB22BC3DAD006A17A8 /* StudentEthnicityViewController.swift in Sources */,
+				F8EF14D722F8714E0016B2A6 /* DistanceParametersViewController.swift in Sources */,
+				F8DCBEE122FE054C00F86467 /* UpdateParentsEducationLevelViewController.swift in Sources */,
 				F8C5776622C1727300E43851 /* WelcomeBackViewController.swift in Sources */,
 				F8FD28092281EC0A00BFB8AA /* WelcomeViewController.swift in Sources */,
 				F81396A6229E00A100A101B8 /* StudentGenderViewController.swift in Sources */,
@@ -331,10 +367,13 @@
 				F8C5776422C1285A00E43851 /* FamilyHistoryViewController.swift in Sources */,
 				F86D57C322CA67D200A87CF5 /* PSATQuestionnaireViewController.swift in Sources */,
 				F86D57C722CA689800A87CF5 /* SATPlansViewController.swift in Sources */,
+				F808EAA022FB695900C5C058 /* UpdateACTScoresViewController.swift in Sources */,
 				F8A4431B22CFD66800100720 /* ACTScoresQuestionnaireViewController.swift in Sources */,
+				F8DCBEDF22FE051A00F86467 /* UpdateStudentSexViewController.swift in Sources */,
 				F8DA0FE622C4DDC100545120 /* GPAQuestionnaireViewController.swift in Sources */,
 				F8FD28072281D96C00BFB8AA /* RegistrationViewController.swift in Sources */,
 				F817121E22D7DD91002C8FCC /* CollegeDetailsViewController.swift in Sources */,
+				F8EF14DB22FB18870016B2A6 /* ConfirmPersonalInformationViewController.swift in Sources */,
 				F841970122C507CA00681120 /* SATScoresQuestionnaireViewController.swift in Sources */,
 				F89951C522EF62F20008F2B6 /* CollegeSearchCostConcernsViewController.swift in Sources */,
 				F8A4431922CFD65300100720 /* ACTPlansViewController.swift in Sources */,
@@ -342,6 +381,7 @@
 				F8BB7C2922D37AD7008B04C9 /* QuestionnaireFinishedViewController.swift in Sources */,
 				F86D57C122CA67C100A87CF5 /* SATQuestionnaireViewController.swift in Sources */,
 				F849C65422567C59007068BF /* AppDelegate.swift in Sources */,
+				F8DCBEE322FE056A00F86467 /* UpdateStudentEthnicityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
