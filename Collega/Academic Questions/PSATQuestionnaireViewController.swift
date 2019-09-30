@@ -20,6 +20,8 @@ class PSATQuestionnaireViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.psatInformationTextLabel.text = "Have you taken the PSAT, \(studentFirstName)?"
         }

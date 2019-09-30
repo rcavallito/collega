@@ -1,4 +1,3 @@
-//
 //  CollegeSearch1ViewController.swift
 //  Collega
 //
@@ -47,7 +46,6 @@ class CollegeSearch1ViewController: UIViewController, UITableViewDelegate, UITab
         if segue.identifier == "showDetailsVCId", let destVC = segue.destination as? CollegeDetailsViewController, let idxPath = sender as? IndexPath {
             destVC.selectedCollege = self.collegeList[idxPath.row]
         }
-        
     }
     
     

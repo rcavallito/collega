@@ -20,6 +20,8 @@ class PACTQuestionnaireViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.pactInformationTextLabel.text = "Have you taken the PreACT, \(studentFirstName)?"
         }

@@ -27,6 +27,8 @@ class GPAQuestionnaireViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.gpaInformationTextLabel.text = "Terrific \(studentFirstName), now we need to know a little more about your academic situation:"
         }

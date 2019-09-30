@@ -99,6 +99,8 @@ class StudentEthnicityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.ethnicityInformationTextLabel.text = "\(studentFirstName), which category or categories best describe you (you can select more than one):"
         }

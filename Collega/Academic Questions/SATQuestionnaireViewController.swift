@@ -20,6 +20,8 @@ class SATQuestionnaireViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.satInformationTextLabel.text = "Have you taken the SAT, \(studentFirstName)?"
         }

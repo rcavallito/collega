@@ -33,6 +33,8 @@ class SATScoresQuestionnaireViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         sliderSATReadingWritingScoreResult.text = "Score"
         sliderSATMathScoreResult.text = "Score"
         sliderSATEssay1ScoreResult.text = "Score"

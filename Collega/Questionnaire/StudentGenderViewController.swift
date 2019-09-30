@@ -20,8 +20,9 @@ class StudentGenderViewController: UIViewController, UIPickerViewDelegate, UIPic
     var ref:DatabaseReference?
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
+        ref = Database.database().reference()
         
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.additionalInformationTextLabel.text = "Terrific \(studentFirstName), now let's move on to some additional questions that will help us find the best fit for you:"

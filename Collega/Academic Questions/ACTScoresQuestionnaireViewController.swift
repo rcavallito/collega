@@ -32,6 +32,8 @@ class ACTScoresQuestionnaireViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         sliderACTEnglishScoreResult.text = "Score"
         sliderACTMathScoreResult.text = "Score"
         sliderACTReadingScoreResult.text = "Score"

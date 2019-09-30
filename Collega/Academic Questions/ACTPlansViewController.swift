@@ -20,6 +20,8 @@ class ACTPlansViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.planOnTakingACTTextLabel.text = "Are you planning on taking the ACT, \(studentFirstName)?"
         }

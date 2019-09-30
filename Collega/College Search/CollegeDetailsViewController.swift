@@ -70,6 +70,9 @@ class CollegeDetailsViewController: UIViewController {
     let blankStar = UIImage(named: "star (1)")
     let filledStar = UIImage(named: "star")
     
+    //let blankStar = UIImage(systemName: "heart")
+    //let filledStar = UIImage(systemName: "heart.fill")
+    
     @IBOutlet weak var favCollegeStar: UIButton!
     @IBAction func favoriteCollegeStarButton(_ sender: UIButton) {
         
