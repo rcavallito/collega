@@ -17,7 +17,6 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
 
     @IBOutlet weak var recommendedCollegeSearchResultsTextLabel: UILabel!
     
-    
     let apiKey = "pzTiQAuLWx613F6yeC9Kk30q7Yn0g1tgpJdARPhM"
     let baseURL = "https://api.data.gov/ed/collegescorecard/v1/schools?"
     var finalURL = ""
@@ -30,6 +29,7 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
     var recommendedCollegeList = [JSON]()
     var numberOfCollegesReturned = 0
     
+    //This sets the number of rows in the TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return(recommendedCollegeList.count)
     }
@@ -38,6 +38,7 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "collegeDisplayCell")
         cell.textLabel?.text = recommendedCollegeList[indexPath.row]["school.name"].stringValue
         cell.detailTextLabel?.text = recommendedCollegeList[indexPath.row]["school.state"].stringValue
+
         return(cell)
     }
     
@@ -48,25 +49,34 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
     }
     
     
-    //Sets color of background of table as well as text within tableview
+    //Sets color of background of table as well as text within tableview making it dependent on the 6-year completion rate for each school.
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.contentView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.96, alpha:1.0)
         
         if recommendedCollegeList[indexPath.row]["latest.completion.completion_rate_4yr_150nt_pooled"] > 0.75 {
             cell.textLabel?.textColor = UIColor(red:0.12, green:0.34, blue:0.19, alpha:1.0)
             cell.detailTextLabel?.textColor = UIColor(red:0.12, green:0.34, blue:0.19, alpha:1.0)
+            cell.contentView.backgroundColor = UIColor.white
         } else if recommendedCollegeList[indexPath.row]["latest.completion.completion_rate_4yr_150nt_pooled"] > 0.50 {
             cell.textLabel?.textColor = UIColor.orange
             cell.detailTextLabel?.textColor = UIColor.orange
+            cell.contentView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.0)
         } else {
             cell.textLabel?.textColor = UIColor.red
             cell.detailTextLabel?.textColor = UIColor.red
+            cell.contentView.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
         }
+        
+        //This is the original coloring I believe?
         //cell.textLabel?.textColor = UIColor(red:0.77, green:0.62, blue:0.09, alpha:1.0)
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Use this if I want to change the background color of the entire table
+        //self.resultsTableJSON.backgroundColor = UIColor.red
 
 // Use this once we start to pull specific student information from Firebase
         ref = Database.database().reference()
@@ -85,7 +95,6 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
             }
             
         })
-        
         
         getCollegeLists(schoolState: "\(searchParameterSchoolState)", perPage: 100, ownership: "1,2", level: "3")
         
@@ -157,16 +166,17 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
     //MARK: - JSON Parsing
     func processCollegeList() {
         self.recommendedCollegeList = self.recommendedCollegeListInfo["results"].arrayValue
+        self.recommendedCollegeListInfo.sorted(by: >)
+
         self.resultsTableJSON.reloadData()
         
-        //Should this really be here? I can't figure out how to get it to return the number in viewDidLoad
+        //This allows me to state how many colleges are returned and include it in the text at the top of the screen.
         numberOfCollegesReturned = recommendedCollegeListInfo["metadata"]["total"].intValue
         print(numberOfCollegesReturned)
         
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.recommendedCollegeSearchResultsTextLabel.text = "Okay \(studentFirstName), here is a list of \(numberOfCollegesReturned) colleges that fit your initial search criteria:"
         }
-
     }
     
     //Send data forward to College Information VC

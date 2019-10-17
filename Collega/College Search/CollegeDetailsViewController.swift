@@ -21,6 +21,9 @@ class CollegeDetailsViewController: UIViewController {
     @IBOutlet weak var m_lblZipCode: UILabel!
     @IBOutlet weak var m_lblURL: UILabel!
     
+    var urlText : String = "www.colleg.ai"
+    var initialURLText : String = "http://"
+    
     //MARK: General Information Labels
     @IBOutlet weak var m_lblCollegeType: UILabel!
     @IBOutlet weak var m_lblPredominantDegreeGranted: UILabel!
@@ -198,6 +201,12 @@ class CollegeDetailsViewController: UIViewController {
         self.m_lblState.text = (selectedCollege["school.state"].stringValue)
         self.m_lblZipCode.text = (selectedCollege["school.zip"].stringValue)
         self.m_lblURL.text = (selectedCollege["school.school_url"].stringValue)
+        
+        //Make the URL code clickable
+        m_lblURL.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(clickURLLabel))
+        tapGesture.numberOfTapsRequired = 1
+        m_lblURL.addGestureRecognizer(tapGesture)
         
         //MARK: Publish the General Information
         self.m_lblCollegeType.text = "\(ownership!)"
@@ -424,6 +433,17 @@ class CollegeDetailsViewController: UIViewController {
         }
 
 }
+    
+    //Function for what what happens when the URL label is clicked on HOW CAN I GET THIS TO DISPLAY THE URL FOR THE SELECTED COLLEGE???
+    @objc func clickURLLabel() {
+        
+        let urlText = (selectedCollege["school.school_url"].stringValue)
+        
+        if let url = URL(string: initialURLText + urlText) {
+            UIApplication.shared.open(url)
+        }
+        print("Username UILabel gets clicked")
+    }
     
     //Sending text forward
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

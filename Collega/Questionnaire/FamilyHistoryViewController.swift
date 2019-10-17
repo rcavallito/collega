@@ -16,22 +16,28 @@ class FamilyHistoryViewController: UIViewController, UIPickerViewDelegate, UIPic
     @IBOutlet weak var parentsEducationLevelPickerView: UIPickerView!
     @IBOutlet weak var householdIncomePickerView: UIPickerView!
     
-    let parentsEducationLevelArray = ["-Select One-", "Both parents graduated college", "One parent graduated college", "Both parents some college", "One parent some college", "Neither parent graduated college"]
-    let householdIncomeArray = ["-Select One-", "<$30,000", "$30,001 - $48,000", "$48,001 - $75,000", "$75,000 - $110,000", ">$110,000"]
+    //Arrays and variables for Picker Views
+    let parentsEducationLevelArray = ["-Select One-", "Both parents graduated college", "One parent graduated college", "Both parents some college", "One parent some college", "Neither parent graduated college","I don't know", "I don't want to answer"]
+    let householdIncomeArray = ["-Select One-", "<$30,000", "$30,001 - $48,000", "$48,001 - $75,000", "$75,000 - $110,000", ">$110,000","I don't know", "I don't want to answer"]
     var parentsEducationLevel = ""
     var householdIncome = ""
+    
+    //Creating variable for Firebase calls
     var ref:DatabaseReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Firebase
         ref = Database.database().reference()
         
+        //Dynamic content allowing for personalization of First Name from User Defaults
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
-            self.familyInformationTextLabel.text = "\(studentFirstName), now we need to ask you some questions about your family:"
+            self.familyInformationTextLabel.text = "Alright \(studentFirstName), now we need to ask you some questions about your family:"
         }
     }
 
+    //These are standard UIPicker View functions adapted for 2 Picker Views using Tags
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -52,8 +58,7 @@ class FamilyHistoryViewController: UIViewController, UIPickerViewDelegate, UIPic
         }
     }
     
-// This is for when we take the data selected and do something with it:
-    
+    //This is where we take the data selected and assign it to a variable
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView.tag == 1 {
         parentsEducationLevel = parentsEducationLevelArray[row]
@@ -70,13 +75,21 @@ class FamilyHistoryViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
 
     //Send data to Firebase
-    
     @IBAction func submitFamilyInformationPressed(_ sender: UIButton) {
-
+        
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
-
-        let familyInformation = ["ParentsEducationLevel" : parentsEducationLevel, "HouseholdIncome" : householdIncome] as [String : Any]
-        ref?.child("Students").child(curUserId).child("StudentFamilyInformation").setValue(familyInformation)
+        
+        //Checking to ensure that all the fields have been updated in order to satisfy "StudentFamilyInformationSectionCompleted" as True || False
+        if parentsEducationLevel == "" || householdIncome == "" {
+        
+            let familyInformation = ["ParentsEducationLevel" : parentsEducationLevel, "HouseholdIncome" : householdIncome, "StudentFamilyInformationSectionCompleted" : "false"] as [String : Any]
+            ref?.child("Students").child(curUserId).child("StudentFamilyInformation").setValue(familyInformation)
+            
+        } else {
+            
+            let familyInformation = ["ParentsEducationLevel" : parentsEducationLevel, "HouseholdIncome" : householdIncome, "StudentFamilyInformationSectionCompleted" : "true"] as [String : Any]
+            ref?.child("Students").child(curUserId).child("StudentFamilyInformation").setValue(familyInformation)
+        }
 
         performSegue(withIdentifier: "goToGPAQuestionnaireScreen", sender: self)
         

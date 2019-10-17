@@ -15,30 +15,33 @@ class WelcomeBackViewController: UIViewController {
     @IBOutlet weak var welcomeBackTextLabel: UILabel!
     
     var ref:DatabaseReference?
-    var studentGraduationYear = ""
-    var studentSex = ""
-    var studentEthnicity = ""
-    var studentFamilyInformation = ""
-    var studentGPA = ""
-    var studentSAT = ""
-    var studentACT = ""
+    
+    //Variables to determine where the student left off in the questionnaire
+    var studentGeneralInformationSectionCompleted = "false"
+    var studentEthnicityInformationSectionCompleted = "false"
+    var studentFamilyInformationSectionCompleted = ""
+    var studentGPASectionCompleted = ""
+    var studentSATTakenSectionCompleted = ""
+    var studentACTTakenSectionCompleted = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Firebase
         ref = Database.database().reference()
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
         ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             if let value = snapshot.value {
                 let json = JSON(value)
-                self.studentGraduationYear = (json["StudentGraduationYear"].stringValue)
-                self.studentSex = (json["StudentSex"].stringValue)
-                self.studentEthnicity = (json["StudentEthnicityInformation"]["AmericanIndianAlaskaNative"].stringValue)
-                self.studentFamilyInformation = (json["StudentFamilyInformation"]["ParentsEducationLevel"].stringValue)
-                self.studentGPA = (json["StudentGPAInformation"]["StudentUnweightedGPA"].stringValue)
-                self.studentSAT = (json["StudentSATInformation"]["StudentMathSATScore"].stringValue)
-                self.studentACT = (json["StudentACTInformation"]["StudentMathACTScore"].stringValue)
+                
+                //Tests each section if completed to know where to bring student to complete questionnaire
+                self.studentGeneralInformationSectionCompleted = (json["StudentGeneralInformationSectionCompleted"].stringValue)
+                self.studentEthnicityInformationSectionCompleted = (json["StudentEthnicityInformation"]["StudentEthnicityInformationSectionCompleted"].stringValue)
+                self.studentFamilyInformationSectionCompleted = (json["StudentFamilyInformation"]["StudentFamilyInformationSectionCompleted"].stringValue)
+                self.studentGPASectionCompleted = (json["StudentGPAInformation"]["StudentGPAInformationSectionCompleted"].stringValue)
+                self.studentSATTakenSectionCompleted = (json["StudentSATInformation"]["StudentMathSATScore"].stringValue)
+                self.studentACTTakenSectionCompleted = (json["StudentACTInformation"]["StudentMathACTScore"].stringValue)
             }
         })
     }
@@ -48,20 +51,18 @@ class WelcomeBackViewController: UIViewController {
     }
     
     @IBAction func returnToQuestionnaireFromWelcomeScreen(_ sender: UIButton) {
-        if studentGraduationYear == "" {
+        if studentGeneralInformationSectionCompleted == "false" || studentGeneralInformationSectionCompleted == "" {
             performSegue(withIdentifier: "resumeQuestionnaireGeneralInformation", sender: self)
-        } else if studentSex == "" || studentSex == "skipped" {
-            performSegue(withIdentifier: "resumeQuestionnaireSex", sender: self)
-        } else if studentEthnicity == "" || studentEthnicity == "skipped" {
+        } else if studentEthnicityInformationSectionCompleted == "false" || studentEthnicityInformationSectionCompleted == "" {
             performSegue(withIdentifier: "resumeQuestionnaireEthnicity", sender: self)
-        } else if studentFamilyInformation == "" {
+        } else if studentFamilyInformationSectionCompleted == "false" || studentFamilyInformationSectionCompleted == "" {
             performSegue(withIdentifier: "resumeQuestionnaireFamily", sender: self)
-        } else if studentGPA == "" {
+        } else if studentGPASectionCompleted == "false" || studentGPASectionCompleted == "" {
             performSegue(withIdentifier: "resumeQuestionnaireGPA", sender: self)
-        } else if studentSAT == "" {
-            performSegue(withIdentifier: "resumeQuestionnaireSATScores", sender: self)
-        } else if studentACT == "" {
-            performSegue(withIdentifier: "resumeQuestionnaireACTScores", sender: self)
+        } else if studentSATTakenSectionCompleted == "" {
+            performSegue(withIdentifier: "resumeQuestionnaireSATTaken", sender: self)
+        } else if studentACTTakenSectionCompleted == "" {
+            performSegue(withIdentifier: "resumeQuestionnaireACTTaken", sender: self)
         } else {
             performSegue(withIdentifier: "resumeQuestionnaireFinished", sender: self)
         }

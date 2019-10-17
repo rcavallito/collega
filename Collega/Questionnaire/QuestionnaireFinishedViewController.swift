@@ -41,17 +41,20 @@ class QuestionnaireFinishedViewController: UIViewController {
                 self.studentACT = (json["StudentACTInformation"]["StudentMathACTScore"].stringValue)
     
             }
-        })
-        
-        if studentGraduationYear != "" || studentSex != "" || studentEthnicity != "" || studentFamilyInformation != "" || studentGPA != "" || studentSAT != "" || studentACT != "" {
-            if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
-                finishedScreenTextLabel.text = "Terrific \(studentFirstName), you're done with the questionnaire. Now, let's move on to the next step – searching for a college!"
-            } else {
+            
+            if self.studentGraduationYear == "2024" {
+                
                 if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
-                    finishedScreenTextLabel.text = "Okay \(studentFirstName), it looks like you skipped an item or two, but you can go back at any time by clicking on Finish Questionnaire after you log in. You will also have other opportunities to update your information as you go through the college search process. For now, let's move on to the next steps!"
+                    self.finishedScreenTextLabel.text = "Terrific \(studentFirstName), you're done with the questionnaire. Now, let's move on to the next step – searching for a college!"
+                    }
+                
+            } else {
+                
+                if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
+                self.finishedScreenTextLabel.text = "Okay \(studentFirstName), it looks like you skipped an item or two, but you can go back at any time by clicking on Finish Questionnaire after you log in. You will also have other opportunities to update your information as you go through the college search process. For now, let's move on to the next steps!"
                     }
             }
-        }
+        })
     }
     
     @IBAction func nextFromFinishedQuestionnaireScreen(_ sender: UIButton) {

@@ -11,48 +11,83 @@ import Firebase
 
 class GeneralInformationQuestionnaireViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    @IBOutlet weak var studentFirstNameTextField: UITextField!
-    @IBOutlet weak var studentLastNameTextField: UITextField!
+    @IBOutlet weak var studentSexPickerView: UIPickerView!
     @IBOutlet weak var studentHomeZipCodeTextField: UITextField!
     @IBOutlet weak var studentStatePickerView: UIPickerView!
-    @IBOutlet weak var studentExpectedGraduationYearTextField: UITextField!
+    @IBOutlet weak var studentExpectedGraduationYearPickerView: UIPickerView!
     
+    //Creating variable for Firebase calls
     var ref:DatabaseReference?
     
-    var studentState = ""
-    let stateArray = ["-Select One-","AK","AL","AR","AS","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"]
+    //For the studentStatePickerView
+    var studentHomeState = ""
+    let studentHomeStateArray = ["-Select One-","AK","AL","AR","AS","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"]
+    
+    //For the studentSexPickerView
+    let studentSexArray = ["-Select One-", "Male", "Female", "Genderqueer/Non-Binary", "Rather Not Say"]
+    var studentSex = ""
+    
+    //For the studentExpectedGraduationYearPickerView
+    let studentGraduationYearArray = ["2020","2021","2022","2023","2024","Not sure","Another year"]
+    var studentGraduationYear = ""
+    
+    //Pulling first and last name from User Defaults
+    let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String
+    let studentLastName = UserDefaults.standard.object(forKey: "studentLastName") as? String
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ref = Database.database().reference()
-        studentExpectedGraduationYearTextField.delegate = self
-        studentHomeZipCodeTextField.delegate = self
-        studentLastNameTextField.delegate = self
-        studentFirstNameTextField.delegate = self
+        print(studentLastName)
+        print(studentFirstName)
         
+        //Firebase
+        ref = Database.database().reference()
+    
+        studentHomeZipCodeTextField.delegate = self
+
         //Listen for keyboard events - Original
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
+
     
-    //This is for the UIPicker View
+    //These are standard UIPicker View functions adapted for 3 Picker Views using Tags
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return stateArray.count
+        if pickerView.tag == 1 {
+            return studentSexArray.count
+        } else if pickerView.tag == 2 {
+            return studentHomeStateArray.count
+        } else {
+            return studentGraduationYearArray.count
+        }
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return stateArray[row]
+        if pickerView.tag == 1 {
+            return studentSexArray[row]
+        } else  if pickerView.tag == 2 {
+            return studentHomeStateArray[row]
+        } else {
+            return studentGraduationYearArray[row]
+        }
     }
     
-    //This is where we take the data selected and put it into an array
+    //This is where we take the data selected and assign it to a variable
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        studentState = stateArray[row]
+        if pickerView.tag == 1 {
+            studentSex = studentSexArray[row]
+        } else if pickerView.tag == 2 {
+            studentHomeState = studentHomeStateArray[row]
+        } else {
+            studentGraduationYear = studentGraduationYearArray[row]
+        }
     }
     
     //Stop listening for keyboard events - Original
@@ -64,48 +99,48 @@ class GeneralInformationQuestionnaireViewController: UIViewController, UITextFie
     
     //Objective-C function for moving text field - Original
     @objc func keyboardWillChange(notification: Notification) {
-        if studentExpectedGraduationYearTextField.isEditing || studentHomeZipCodeTextField.isEditing {
+        if studentHomeZipCodeTextField.isEditing {
             view.frame.origin.y = -250
         } else {
             view.frame.origin.y = 0
         }
     }
     
-    //This is where we send data to Firebase
-    @IBAction func submitStudentGeneralInformationPressed(_ sender: UIButton) {
-        sendGeneralInformationToFirebase()
-    }
-    
     //Allows user to toggle to next Text field or execute function by hitting Enter/Go on keyboard, then dismisses keyboard when done editing
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == studentFirstNameTextField {
-            textField.resignFirstResponder()
-            studentLastNameTextField.becomeFirstResponder()
-        } else if textField == studentLastNameTextField {
-            textField.resignFirstResponder()
-            studentHomeZipCodeTextField.becomeFirstResponder()
-        } else if textField == studentHomeZipCodeTextField {
-            textField.resignFirstResponder()
-            studentExpectedGraduationYearTextField.becomeFirstResponder()
-        } else if textField == studentExpectedGraduationYearTextField {
+        if textField == studentHomeZipCodeTextField {
             textField.resignFirstResponder()
             sendGeneralInformationToFirebase()
         }
         return true
     }
     
+    
+    //This is where we send data to Firebase
+    @IBAction func submitStudentGeneralInformationPressed(_ sender: UIButton) {
+        sendGeneralInformationToFirebase()
+    }
+    
     func sendGeneralInformationToFirebase() {
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
         guard let curUserEmail = Auth.auth().currentUser?.email else { return }
         
-        let studentInformation = ["StudentEmailAddress" : curUserEmail, "StudentFirstName" : studentFirstNameTextField.text!, "StudentLastName" : studentLastNameTextField.text!, "StudentHomeState" : studentState,
-            "StudentHomeZipCode" : studentHomeZipCodeTextField.text!, "StudentGraduationYear" : studentExpectedGraduationYearTextField.text!] as [String : Any]
-                
-        ref?.child("Students").child(curUserId).setValue(studentInformation)
+        //Checking to ensure that all the fields have been updated in order to satisfy "StudentGeneralInformationSectionCompleted as True || False
+        if curUserEmail != "" && studentHomeState != "" && studentHomeZipCodeTextField.text != "" && studentGraduationYear != "" && studentSex != "" {
         
-        UserDefaults.standard.set(studentFirstNameTextField.text!, forKey: "studentFirstName")
+        let studentInformation = ["StudentEmailAddress" : curUserEmail, "StudentFirstName" : studentFirstName, "StudentLastName" : studentLastName, "StudentHomeState" : studentHomeState,
+            "StudentHomeZipCode" : studentHomeZipCodeTextField.text!, "StudentGraduationYear" : studentGraduationYear, "StudentSex" : studentSex, "StudentGeneralInformationSectionCompleted" : "true"] as [String : Any]
+            ref?.child("Students").child(curUserId).setValue(studentInformation)
+            
+        } else {
+            
+            let studentInformation = ["StudentEmailAddress" : curUserEmail, "StudentFirstName" : studentFirstName, "StudentLastName" : studentLastName, "StudentHomeState" : studentHomeState,
+                "StudentHomeZipCode" : studentHomeZipCodeTextField.text!, "StudentGraduationYear" : studentGraduationYear, "StudentSex" : studentSex, "StudentGeneralInformationSectionCompleted" : "false"] as [String : Any]
+            ref?.child("Students").child(curUserId).setValue(studentInformation)
+        }
         
-        performSegue(withIdentifier : "goToSexQuestionnaireScreen", sender: self)
+        performSegue(withIdentifier : "goToEthnicityQuestionnaireScreen", sender: self)
+        
     }
     
 }
