@@ -13,7 +13,7 @@ import SwiftyJSON
 class DistanceParametersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var ref:DatabaseReference?
-    var remainInState : String = "false"
+    var remainInState : String = "False"
     var preferredRegion : String = "none"
     
     @IBOutlet weak var remainInStateLabel: UILabel!
@@ -62,10 +62,10 @@ class DistanceParametersViewController: UIViewController, UIPickerViewDelegate, 
     
     @IBAction func remainInStateSwitch(_ sender: UISwitch) {
             if (sender.isOn == true) {
-                remainInState = "true"
+                remainInState = "True"
             }
             else {
-                remainInState = "false"
+                remainInState = "False"
             }
     }
     

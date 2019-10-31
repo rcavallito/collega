@@ -13,87 +13,87 @@ import SwiftyJSON
 class StudentEthnicityViewController: UIViewController {
     
     //Variables describing students' possibile ethnicities, all defaulted to "false"
-    var whiteEthnicity : String = "false"
-    var hispanicEthnicity : String = "false"
-    var blackEthnicity : String = "false"
-    var asianEthnicity : String = "false"
-    var americanIndianEthnicity : String = "false"
-    var middleEasternEthnicity : String = "false"
-    var nativeHawaiianEthnicity : String = "false"
-    var otherEthnicity : String = "false"
+    var whiteEthnicity : String = "False"
+    var hispanicEthnicity : String = "False"
+    var blackEthnicity : String = "False"
+    var asianEthnicity : String = "False"
+    var americanIndianEthnicity : String = "False"
+    var middleEasternEthnicity : String = "False"
+    var nativeHawaiianEthnicity : String = "False"
+    var otherEthnicity : String = "False"
     
     @IBOutlet weak var ethnicityInformationTextLabel: UILabel!
     
     //Defines what happens if/when a switch is changed (default is "false")
     @IBAction func whiteEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            whiteEthnicity = "true"
+            whiteEthnicity = "True"
         }
         else {
-            whiteEthnicity = "false"
+            whiteEthnicity = "False"
         }
     }
     
     @IBAction func hispanicEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            hispanicEthnicity = "true"
+            hispanicEthnicity = "True"
         }
         else {
-            hispanicEthnicity = "false"
+            hispanicEthnicity = "False"
         }
     }
     
     @IBAction func blackEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            blackEthnicity = "true"
+            blackEthnicity = "True"
         }
         else {
-            blackEthnicity = "false"
+            blackEthnicity = "False"
         }
     }
     
     @IBAction func asianEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            asianEthnicity = "true"
+            asianEthnicity = "True"
         }
         else {
-            asianEthnicity = "false"
+            asianEthnicity = "False"
         }
     }
     
     @IBAction func americanIndianEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            americanIndianEthnicity = "true"
+            americanIndianEthnicity = "True"
         }
         else {
-            americanIndianEthnicity = "false"
+            americanIndianEthnicity = "False"
         }
     }
     
     @IBAction func middleEasternEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            middleEasternEthnicity = "true"
+            middleEasternEthnicity = "True"
         }
         else {
-            middleEasternEthnicity = "false"
+            middleEasternEthnicity = "False"
         }
     }
     
     @IBAction func hawaiianPacificEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            nativeHawaiianEthnicity = "true"
+            nativeHawaiianEthnicity = "True"
         }
         else {
-            nativeHawaiianEthnicity = "false"
+            nativeHawaiianEthnicity = "False"
         }
     }
     
     @IBAction func otherEthnicitySwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            otherEthnicity = "true"
+            otherEthnicity = "True"
         }
         else {
-            otherEthnicity = "false"
+            otherEthnicity = "False"
         }
     }
     
@@ -115,6 +115,8 @@ class StudentEthnicityViewController: UIViewController {
     //This is for the "Why are you asking ... "
     @IBAction func whyAskingFromEthnicity(_ sender: UIButton) {
         performSegue(withIdentifier: "whyAskingFromEthnicityQuestionnaire", sender: self)
+        
+        
     }
     
     //Send the data to Firebase

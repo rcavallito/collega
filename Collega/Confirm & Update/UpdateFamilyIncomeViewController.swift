@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class UpdateFamilyIncomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    //Test changing from String to Index assinging a number to the String to see if that helps so that when nothing is selected it will remain with default
     
     @IBOutlet weak var updateHouseholdIncomePickerView: UIPickerView!
     let updatedHouseholdIncomeArray = ["-Select One-", "<$30,000", "$30,001 - $48,000", "$48,001 - $75,000", "$75,000 - $110,000", ">$110,000"]

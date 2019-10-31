@@ -48,6 +48,13 @@ class GPAQuestionnaireViewController: UIViewController {
         sliderWeightedGPA.value = roundedWeightedGPA
         sliderWeightedGPAResult.text = String(format: "%.2f", sliderWeightedGPA.value)
     }
+    
+    //This is for the "Why are you asking ... "
+    @IBAction func whyAskingFromGPAQuestionnaire(_ sender: UIButton) {
+        performSegue(withIdentifier: "whyAskingFromGPAQuestionnaire", sender: self)
+    }
+    
+    
 
     //Send data to Firebase
     @IBAction func submitGPAInformationPressed(_ sender: UIButton) {

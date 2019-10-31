@@ -65,6 +65,7 @@ class ConfirmPersonalInformationViewController: UIViewController {
                 self.studentSATScoreToConfirm.setTitle("Not taken", for: .normal)
                 }
                 
+                
                 //ACT Score fetch from Firebase
                 if (json["StudentACTInformation"]["TakenACT"].stringValue) == "true"
                 {
@@ -122,9 +123,12 @@ class ConfirmPersonalInformationViewController: UIViewController {
                 } else {
                     self.studentEthnicityToConfirm.setTitle(String("Not provided"), for: .normal)
                 }
+            
         
             }
+            
         })
+        
     }
     
     @IBAction func looksGoodButtonPressed(_ sender: UIButton) {

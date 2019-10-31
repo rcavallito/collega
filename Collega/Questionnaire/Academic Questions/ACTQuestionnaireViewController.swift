@@ -21,9 +21,9 @@ class ACTQuestionnaireViewController: UIViewController {
     var ref:DatabaseReference?
     
     //Creating variables for the UISwitch's
-    var takenACT : String = "false"
-    var takenPACT : String = "false"
-    var planOnTakingACT : String = "false"
+    var takenACT : String = "False"
+    var takenPACT : String = "False"
+    var planOnTakingACT : String = "False"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,30 +40,30 @@ class ACTQuestionnaireViewController: UIViewController {
     //Determine if the student has taken the ACT yet
     @IBAction func takenACTSwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            takenACT = "true"
+            takenACT = "True"
         }
         else {
-            takenACT = "false"
+            takenACT = "False"
         }
     }
     
     //Determine if the student has taken the PACT yet
     @IBAction func takenPACTSwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            takenPACT = "true"
+            takenPACT = "True"
         }
         else {
-            takenPACT = "false"
+            takenPACT = "False"
         }
     }
     
     //Determine if the student is going to take the ACT
     @IBAction func planOnTakingACTSwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            planOnTakingACT = "true"
+            planOnTakingACT = "True"
         }
         else {
-            planOnTakingACT = "false"
+            planOnTakingACT = "False"
         }
     }
     

@@ -17,6 +17,13 @@ class CollegeSearch1ViewController: UIViewController, UITableViewDelegate, UITab
     var collegeListInfo = JSON()
     var collegeList = [JSON]()
     
+    //Variables and constants for creating the API call into College Scorecard (https://collegescorecard.ed.gov/data/documentation/)
+    let apiKey = "pzTiQAuLWx613F6yeC9Kk30q7Yn0g1tgpJdARPhM"
+    let baseURL = "https://api.data.gov/ed/collegescorecard/v1/schools?"
+    var finalURL = ""
+    var collegeSelected = ""
+    
+    //TableView Controller Functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return(collegeList.count)
     }
@@ -41,29 +48,17 @@ class CollegeSearch1ViewController: UIViewController, UITableViewDelegate, UITab
         cell.detailTextLabel?.textColor = UIColor(red:0.77, green:0.62, blue:0.09, alpha:1.0)
     }
     
-    //Send data forward to College Information VC
+    //Send detailed college data forward to College Information VC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetailsVCId", let destVC = segue.destination as? CollegeDetailsViewController, let idxPath = sender as? IndexPath {
             destVC.selectedCollege = self.collegeList[idxPath.row]
         }
     }
     
-    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        var myChancesViewController = segue.destination as! MyChancesViewController
-    //        myChancesViewController.myString = m_lblAverageIncome10YearsAfterEntry.text!
-    //    }
-    
-    //Original part of the code where a function is run to get data and display a manually determined piece of it in the Name of College and Acceptance Rate labels.
-    
-    let apiKey = "pzTiQAuLWx613F6yeC9Kk30q7Yn0g1tgpJdARPhM"
-    let baseURL = "https://api.data.gov/ed/collegescorecard/v1/schools?"
-    var finalURL = ""
-    var collegeSelected = ""
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Default setting for the function to pull colleges with "Texas" in the name
         getCollegeLists(name: "texas")
         
         testingTableJSON.delegate = self
@@ -71,6 +66,7 @@ class CollegeSearch1ViewController: UIViewController, UITableViewDelegate, UITab
         collegeSearchTextField.delegate = self
     }
     
+    //Function allowing specification of certain search parameters such as Name, State, Ownership, etc... along with the various fields of data to return from the schools that are called. The data in red is what is sent forward to the College Information VC to display the details of each school. This is entered manually below at this point.
     func getCollegeLists(schoolIsOperating: Int? = nil, zipCode: String? = nil, distanceInMile: Int? = nil, schoolState: String? = nil, perPage: Int? = nil, name: String? = nil, ownership: Int? = nil, additionalFields: [String: String]? = ["_fields": "school.name,id,school.city,school.state,school.zip,school.school_url,school.locale,school.men_only,school.women_only,latest.admissions.admission_rate.overall,latest.admissions.sat_scores.average.overall,latest.admissions.act_scores.midpoint.cumulative,school.ownership,latest.student.size,latest.student.grad_students,latest.student.demographics.men,latest.student.demographics.women,latest.student.part_time_share,latest.student.demographics.race_ethnicity.white,latest.student.demographics.race_ethnicity.black,latest.student.demographics.race_ethnicity.hispanic,latest.student.demographics.race_ethnicity.asian,latest.student.demographics.race_ethnicity.aian,latest.student.demographics.race_ethnicity.nhpi,latest.student.demographics.race_ethnicity.two_or_more,latest.student.demographics.race_ethnicity.non_resident_alien,latest.student.demographics.race_ethnicity.unknown,latest.student.retention_rate.four_year.full_time_pooled,latest.student.retention_rate.lt_four_year.full_time_pooled,school.degrees_awarded.predominant,latest.cost.net_price.public.by_income_level.0-30000,latest.cost.net_price.public.by_income_level.30001-48000,latest.cost.net_price.public.by_income_level.48001-75000,latest.cost.net_price.public.by_income_level.75001-110000,latest.cost.net_price.public.by_income_level.110001-plus,latest.cost.net_price.private.by_income_level.0-30000,latest.cost.net_price.private.by_income_level.30001-48000,latest.cost.net_price.private.by_income_level.48001-75000,latest.cost.net_price.private.by_income_level.75001-110000,latest.cost.net_price.private.by_income_level.110001-plus,school.carnegie_basic,school.carnegie_undergrad,school.carnegie_size_setting,latest.cost.avg_net_price.private,latest.cost.avg_net_price.public,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.aid.pell_grant_rate,latest.aid.federal_loan_rate,latest.aid.median_debt.completers.overall,latest.completion.completion_rate_4yr_150nt_pooled,latest.earnings.10_yrs_after_entry.working_not_enrolled.mean_earnings,school.religious_affiliation,latest.repayment.3_yr_default_rate"]) {
         
         var parameters = [
@@ -115,6 +111,7 @@ class CollegeSearch1ViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
+    //Function that builds the parameter string for College Board
     func buildParameterString(parameters: [String: String]) -> String {
         var arrParameters = [String]()
         for parameter in parameters {
@@ -131,6 +128,7 @@ class CollegeSearch1ViewController: UIViewController, UITableViewDelegate, UITab
         self.testingTableJSON.reloadData()
     }
     
+    //Allows the user to search by Name
     @IBAction func editingChanged(_ sender: UITextField) {
         guard let searchText = sender.text else { return }
         getCollegeLists(schoolIsOperating: 1, name: searchText)
@@ -142,5 +140,4 @@ class CollegeSearch1ViewController: UIViewController, UITableViewDelegate, UITab
         return true
     }
 
-    
 }

@@ -18,7 +18,7 @@ class CollegeSearchCostConcernsViewController: UIViewController, UITextFieldDele
     let baseURL = "https://api.data.gov/ed/collegescorecard/v1/schools?"
     var finalURL = ""
     var collegeID = ""
-    var studentFamilyIncome = ""
+    var studentFamilyIncome = "TEN"
     var studentFamilyIncomeRevised = 1
     var netPricePublicForStudent = 0
     var netPricePrivateForStudent = 0
@@ -41,26 +41,27 @@ class CollegeSearchCostConcernsViewController: UIViewController, UITextFieldDele
         ref!.child("Students").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             if let value = snapshot.value {
                 let json = JSON(value)
-                let studentFamilyIncome = (json["StudentFamilyInformation"]["HouseholdIncome"].stringValue)
+                self.studentFamilyIncome = (json["StudentFamilyInformation"]["HouseholdIncome"].stringValue)
                 
-                if studentFamilyIncome == "<$30,000" {
+                if self.studentFamilyIncome == "<$30,000" {
                     self.studentFamilyIncomeRevised = 1
-                } else if studentFamilyIncome == "$30,001 - $48,000" {
+                } else if self.studentFamilyIncome == "$30,001 - $48,000" {
                     self.studentFamilyIncomeRevised = 2
-                } else if studentFamilyIncome == "$48,001 - $75,000" {
+                } else if self.studentFamilyIncome == "$48,001 - $75,000" {
                     self.studentFamilyIncomeRevised = 3
-                } else if studentFamilyIncome == "$75,000 - $110,000" {
+                } else if self.studentFamilyIncome == "$75,000 - $110,000" {
                     self.studentFamilyIncomeRevised = 4
                 } else {
                     self.studentFamilyIncomeRevised = 5
                 }
                 
-                print(studentFamilyIncome)
+                print(self.studentFamilyIncome)
                 print(self.studentFamilyIncomeRevised)
             }
             
         })
         
+        print(studentFamilyIncome)
         getCollegeLists(idCode: "227757,228778")
        
     }

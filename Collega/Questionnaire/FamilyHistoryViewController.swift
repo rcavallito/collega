@@ -62,10 +62,8 @@ class FamilyHistoryViewController: UIViewController, UIPickerViewDelegate, UIPic
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView.tag == 1 {
         parentsEducationLevel = parentsEducationLevelArray[row]
-        print(parentsEducationLevel)
         } else {
         householdIncome = householdIncomeArray[row]
-        print(householdIncome)
         }
     }
         

@@ -21,9 +21,9 @@ class SATQuestionnaireViewController: UIViewController {
     var ref:DatabaseReference?
     
     //Creating variables for the UISwitch's
-    var takenSAT : String = "false"
-    var takenPSAT : String = "false"
-    var planOnTakingSAT : String = "false"
+    var takenSAT : String = "False"
+    var takenPSAT : String = "False"
+    var planOnTakingSAT : String = "False"
 
     
     override func viewDidLoad() {
@@ -45,30 +45,30 @@ class SATQuestionnaireViewController: UIViewController {
     //Determine if the student has taken the SAT yet
     @IBAction func takenSATSwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            takenSAT = "true"
+            takenSAT = "True"
         }
         else {
-            takenSAT = "false"
+            takenSAT = "False"
         }
     }
     
     //Determine if the student has taken the PSAT yet
     @IBAction func takenPSATSwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-                takenPSAT = "true"
+                takenPSAT = "True"
             }
             else {
-                takenPSAT = "false"
+                takenPSAT = "False"
             }
         }
     
     //Determine if the student is going to take the SAT
     @IBAction func planOnTakingSATSwitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
-            planOnTakingSAT = "true"
+            planOnTakingSAT = "True"
         }
         else {
-            planOnTakingSAT = "false"
+            planOnTakingSAT = "False"
         }
     }
     

@@ -39,9 +39,6 @@ class GeneralInformationQuestionnaireViewController: UIViewController, UITextFie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(studentLastName)
-        print(studentFirstName)
-        
         //Firebase
         ref = Database.database().reference()
     

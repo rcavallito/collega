@@ -21,8 +21,9 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
     let baseURL = "https://api.data.gov/ed/collegescorecard/v1/schools?"
     var finalURL = ""
     var collegeSelected = ""
-    var searchParameterSchoolState = "TX"
+    var searchParameterSchoolState = "NY"
     var searchParameterZipCode = ""
+    var searchParameterSchoolDistance = ""
     var searchParameterSchoolOwnership = ""
     var ref:DatabaseReference?
     var recommendedCollegeListInfo = JSON()
@@ -78,7 +79,7 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
         //Use this if I want to change the background color of the entire table
         //self.resultsTableJSON.backgroundColor = UIColor.red
 
-// Use this once we start to pull specific student information from Firebase
+        // Use this once we start to pull specific student information from Firebase
         ref = Database.database().reference()
 
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -86,22 +87,36 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
             if let value = snapshot.value {
                 let json = JSON(value)
                 
+                //Setting distance parameters on the API function
                 if (json["SearchParameters"]["DistanceSearchParameters"]["RemainInState"].stringValue) == "true"
                 {
                     self.searchParameterSchoolState = (json["StudentHomeState"].stringValue)
+                } else if (json["SearchParameters"]["DistanceSearchParameters"]["DistanceFromHomeZipCode"].stringValue) != "" {
+                    self.searchParameterSchoolState = ""
+                    self.searchParameterSchoolDistance = (json["SearchParameters"]["DistanceSearchParameters"]["DistanceFromHomeZipCode"].stringValue)
                 } else {
                     self.searchParameterSchoolState = ""
+                    self.searchParameterSchoolDistance = ""
                 }
+                                
             }
             
+            //By placing within the enclosure, I am able to get the correct value for searchParameterSchoolState. However I need a way to run this outside of the enclosures (this is a recurring problem in my code with various other instances).
+            
+            //This one works...Except if the list comes back with more than 100 ... how to solve that? Because the most the API will have on a page is 100??
+            //self.getCollegeLists(schoolState: "\(self.searchParameterSchoolState)", perPage: 100, ownership: "1,2", level: "3")
+            
+            //Probably need to include the getCollegeLists directly into the IF/ELSE statements because of the variables ...
+            
+            self.getCollegeLists(schoolIsOperating: 1, zipCode: "10461", distanceInMile: 100, perPage: 367, ownership: "1,2", level: "3")
+            
         })
-        
-        getCollegeLists(schoolState: "\(searchParameterSchoolState)", perPage: 100, ownership: "1,2", level: "3")
-        
-        print(searchParameterSchoolState)
-        
+                
+        //getCollegeLists(schoolState: "\(searchParameterSchoolState)", perPage: 100, ownership: "1,2", level: "3")
+                
         resultsTableJSON.delegate = self
         resultsTableJSON.dataSource = self
+
     }
     
     func getCollegeLists(schoolIsOperating: Int? = nil, zipCode: String? = nil, distanceInMile: Int? = nil, schoolState: String? = nil, perPage: Int? = nil, name: String? = nil, ownership: String? = nil, level: String? = nil, additionalFields: [String: String]? = ["_fields": "school.name,id,school.city,school.state,school.zip,school.school_url,school.locale,school.men_only,school.women_only,latest.admissions.admission_rate.overall,latest.admissions.sat_scores.average.overall,latest.admissions.act_scores.midpoint.cumulative,school.ownership,latest.student.size,latest.student.grad_students,latest.student.demographics.men,latest.student.demographics.women,latest.student.part_time_share,latest.student.demographics.race_ethnicity.white,latest.student.demographics.race_ethnicity.black,latest.student.demographics.race_ethnicity.hispanic,latest.student.demographics.race_ethnicity.asian,latest.student.demographics.race_ethnicity.aian,latest.student.demographics.race_ethnicity.nhpi,latest.student.demographics.race_ethnicity.two_or_more,latest.student.demographics.race_ethnicity.non_resident_alien,latest.student.demographics.race_ethnicity.unknown,latest.student.retention_rate.four_year.full_time_pooled,latest.student.retention_rate.lt_four_year.full_time_pooled,school.degrees_awarded.predominant,latest.cost.net_price.public.by_income_level.0-30000,latest.cost.net_price.public.by_income_level.30001-48000,latest.cost.net_price.public.by_income_level.48001-75000,latest.cost.net_price.public.by_income_level.75001-110000,latest.cost.net_price.public.by_income_level.110001-plus,latest.cost.net_price.private.by_income_level.0-30000,latest.cost.net_price.private.by_income_level.30001-48000,latest.cost.net_price.private.by_income_level.48001-75000,latest.cost.net_price.private.by_income_level.75001-110000,latest.cost.net_price.private.by_income_level.110001-plus,school.carnegie_basic,school.carnegie_undergrad,school.carnegie_size_setting,latest.cost.avg_net_price.private,latest.cost.avg_net_price.public,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.aid.pell_grant_rate,latest.aid.federal_loan_rate,latest.aid.median_debt.completers.overall,latest.completion.completion_rate_4yr_150nt_pooled,latest.earnings.10_yrs_after_entry.working_not_enrolled.mean_earnings,school.religious_affiliation,latest.repayment.3_yr_default_rate"]) {
@@ -166,13 +181,13 @@ class RecommendedCollegeSearchResultsViewController: UIViewController, UITableVi
     //MARK: - JSON Parsing
     func processCollegeList() {
         self.recommendedCollegeList = self.recommendedCollegeListInfo["results"].arrayValue
-        self.recommendedCollegeListInfo.sorted(by: >)
+        //self.recommendedCollegeListInfo.sorted {$0.name < $1.name}
+        //self.recommendedCollegeListInfo.sorted(by: >)
 
         self.resultsTableJSON.reloadData()
         
         //This allows me to state how many colleges are returned and include it in the text at the top of the screen.
         numberOfCollegesReturned = recommendedCollegeListInfo["metadata"]["total"].intValue
-        print(numberOfCollegesReturned)
         
         if let studentFirstName = UserDefaults.standard.object(forKey: "studentFirstName") as? String {
             self.recommendedCollegeSearchResultsTextLabel.text = "Okay \(studentFirstName), here is a list of \(numberOfCollegesReturned) colleges that fit your initial search criteria:"

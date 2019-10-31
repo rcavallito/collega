@@ -44,6 +44,7 @@ class UpdateSATScoresViewController: UIViewController {
                 self.updateSATMathScoreSlider.value = Float(self.studentSATMathScore)
             }
         })
+                
     }
     
     //Slider for Reading/Writing scores
@@ -54,7 +55,6 @@ class UpdateSATScoresViewController: UIViewController {
     }
     
     //Slider for Math scores
-    
     @IBAction func updatedSATMathSliderValueChanged(_ sender: UISlider) {
         let roundedSATMathValue = round(updateSATMathScoreSlider.value / step) * step
         updateSATMathScoreSlider.value = roundedSATMathValue
@@ -63,7 +63,6 @@ class UpdateSATScoresViewController: UIViewController {
 
 
     //Sends SAT score information to Firebase
-    
     @IBAction func submitUpdateSATScoresPressed(_ sender: UIButton) {
         guard let curUserId = Auth.auth().currentUser?.uid else { return }
 

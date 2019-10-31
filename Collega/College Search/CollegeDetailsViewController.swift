@@ -68,8 +68,7 @@ class CollegeDetailsViewController: UIViewController {
     @IBOutlet weak var m_lblAverageIncome10YearsAfterEntry: UILabel!
     @IBOutlet weak var m_lblThreeYearStudentLoanDefaultRate: UILabel!
     
-    //Image/Fav'ing a college
-    
+    //Image/Fav'ing a college - test, not in use
     let blankStar = UIImage(named: "star (1)")
     let filledStar = UIImage(named: "star")
     
@@ -451,7 +450,7 @@ class CollegeDetailsViewController: UIViewController {
         myChancesViewController.selectedCollegeID = selectedCollege["id"].stringValue
     }
     
-    //MARK: Buttons
+    //MARK: Buttons DELETE AFTER TESTING IS DONE
     @IBAction func btnBackClicked(_ sender: Any) {
         navigationController?.popViewController(animated: true)
         
@@ -464,8 +463,6 @@ class CollegeDetailsViewController: UIViewController {
         performSegue(withIdentifier: "goToMyChancesFromCollegeInformation", sender: self)
     }
     
-    
-
 }
 
 //This is the text that Chris built - keep it so I know how to do this. m_txtDetails.text is the name of the UITextView created.
